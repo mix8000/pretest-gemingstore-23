@@ -78,13 +78,9 @@ try {
             $_SESSION['username'] = $user['username'];
             $_SESSION['role'] = $user['role'];
 
-            if ($role_target === 'admin') {
-                if ($user['role'] === 'admin') {
-                    header('Location: admin.php');
-                } else {
-                    echo "Access Denied. You are not an admin.";
-                    session_destroy();
-                }
+            // Redirect based on role
+            if ($user['role'] === 'admin') {
+                header('Location: admin.php');
             } else {
                 header('Location: index.php');
             }

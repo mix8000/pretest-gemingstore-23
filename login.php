@@ -31,7 +31,7 @@
         </form>
         <div class="login-links">
             <p>New Player? <a href="register.php">Create Character</a></p>
-            <p><a href="login_admin.php" class="admin-link">Admin Access</a></p>
+
         </div>
     </div>
 </body>
