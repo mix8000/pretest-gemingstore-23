@@ -86,14 +86,25 @@ if (!empty($_SESSION['cart'])) {
                 </tbody>
             </table>
 
-            <div style="margin-top: 2rem; text-align: right;">
-                <h2 style="color: var(--neon-green); margin-bottom: 1rem;">TOTAL: $
-                    <?= number_format($total_price, 2) ?>
-                </h2>
-                <form action="api.php" method="POST">
+            <div style="margin-top: 2rem;">
+                <h2 style="color: var(--neon-green); margin-bottom: 1rem; text-align: right;">TOTAL:
+                    $<?= number_format($total_price, 2) ?></h2>
+                <form action="api.php" method="POST" style="max-width: 400px; margin-left: auto;">
                     <input type="hidden" name="action" value="checkout">
-                    <button type="submit" class="btn-neon" style="width: auto; padding: 1rem 3rem;">INITIALIZE
-                        CHECKOUT</button>
+
+                    <div class="form-group">
+                        <label
+                            style="color: var(--text-muted); display: block; margin-bottom: 0.5rem; text-align: left;">Shipping
+                            Address</label>
+                        <textarea name="address" class="form-control" rows="3" required
+                            placeholder="Enter delivery coordinates..."></textarea>
+                    </div>
+
+                    <button type="submit" class="btn-neon" style="width: 100%; padding: 1rem;">INITIALIZE CHECKOUT</button>
+                    <?php if (isset($_GET['error'])): ?>
+                        <p style="color: red; margin-top: 0.5rem; text-align: center;"><?= htmlspecialchars($_GET['error']) ?>
+                        </p>
+                    <?php endif; ?>
                 </form>
             </div>
         <?php endif; ?>

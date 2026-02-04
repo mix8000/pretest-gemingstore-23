@@ -34,12 +34,20 @@ try {
         id INT AUTO_INCREMENT PRIMARY KEY,
         user_id INT NOT NULL,
         total_price DECIMAL(10, 2) NOT NULL,
+        address TEXT,
         status ENUM('pending', 'completed', 'cancelled') DEFAULT 'pending',
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
         FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
     )";
     $pdo->exec($sqlOrders);
     echo "Table 'orders' created successfully.<br>";
+
+    // Upgrade table if exists (Add address)
+    try {
+        $pdo->exec("ALTER TABLE orders ADD COLUMN address TEXT");
+        echo "Added address column to orders.<br>";
+    } catch (Exception $e) { /* Ignore */
+    }
 
     // Create Order Items Table
     $sqlOrderItems = "CREATE TABLE IF NOT EXISTS order_items (

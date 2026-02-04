@@ -116,7 +116,13 @@ try {
             $_SESSION['cart'][$product_id] = $quantity;
         }
 
-        header('Location: cart.php');
+        // Redirect back to the previous page with a success flag
+        $referer = $_SERVER['HTTP_REFERER'] ?? 'index.php';
+        if (strpos($referer, '?') !== false) {
+            header("Location: $referer&added=1");
+        } else {
+            header("Location: $referer?added=1");
+        }
 
     } elseif ($action === 'remove_from_cart') {
         session_start();
@@ -136,6 +142,12 @@ try {
             exit;
         }
 
+        $address = $_POST['address'] ?? '';
+        if (empty($address)) {
+            header('Location: cart.php?error=Please provide a shipping address');
+            exit;
+        }
+
         // Calculate total and save order
         $total_price = 0;
         $order_items = [];
@@ -149,8 +161,8 @@ try {
         }
 
         // Insert Order
-        $stmt = $pdo->prepare("INSERT INTO orders (user_id, total_price) VALUES (?, ?)");
-        $stmt->execute([$_SESSION['user_id'], $total_price]);
+        $stmt = $pdo->prepare("INSERT INTO orders (user_id, total_price, address) VALUES (?, ?, ?)");
+        $stmt->execute([$_SESSION['user_id'], $total_price, $address]);
         $order_id = $pdo->lastInsertId();
 
         // Insert Order Items

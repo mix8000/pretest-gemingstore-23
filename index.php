@@ -2,9 +2,30 @@
 require 'db.php';
 session_start();
 
-// Fetch products
-$stmt = $pdo->query("SELECT * FROM products ORDER BY created_at DESC");
+// Search and Filter logic
+$category = $_GET['category'] ?? '';
+$search = $_GET['search'] ?? '';
+
+$sql = "SELECT * FROM products WHERE 1=1";
+$params = [];
+
+if (!empty($category)) {
+    $sql .= " AND category = ?";
+    $params[] = $category;
+}
+
+if (!empty($search)) {
+    $sql .= " AND name LIKE ?";
+    $params[] = "%$search%";
+}
+
+$sql .= " ORDER BY created_at DESC";
+$stmt = $pdo->prepare($sql);
+$stmt->execute($params);
 $products = $stmt->fetchAll();
+
+// Fetch categories for filter
+$cats = $pdo->query("SELECT DISTINCT category FROM products")->fetchAll(PDO::FETCH_COLUMN);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -15,9 +36,59 @@ $products = $stmt->fetchAll();
     <title>Gaming Store</title>
     <link rel="stylesheet" href="style.css?v=<?php echo time(); ?>">
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        .toast {
+            position: fixed;
+            top: 100px;
+            right: 20px;
+            background: rgba(0, 255, 136, 0.9);
+            color: black;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0, 255, 136, 0.4);
+            z-index: 1000;
+            display: none;
+            animation: slideIn 0.5s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+    </style>
 </head>
 
 <body>
+
+    <?php if (isset($_GET['added'])): ?>
+        <div id="toast" class="toast" style="display: block;">Item added to inventory!</div>
+        <script>
+            setTimeout(() => {
+                const toast = document.getElementById('toast');
+                toast.style.opacity = '0';
+                setTimeout(() => toast.remove(), 500);
+            }, 3000);
+        </script>
+    <?php endif; ?>
+
+    <?php if (isset($_GET['order_success'])): ?>
+        <div id="toast" class="toast" style="display: block; background: var(--neon-purple); color: white;">Order Placed
+            Successfully!</div>
+        <script>
+            setTimeout(() => {
+                const toast = document.getElementById('toast');
+                toast.style.opacity = '0';
+                setTimeout(() => toast.remove(), 500);
+            }, 3000);
+        </script>
+    <?php endif; ?>
 
     <nav class="navbar">
         <div class="logo">GEMING STORE</div>
@@ -32,6 +103,7 @@ $products = $stmt->fetchAll();
             <?php if (isset($_SESSION['user_id'])): ?>
                 <span style="color: var(--neon-green); margin-left: 20px;">[
                     <?php echo htmlspecialchars($_SESSION['username']); ?> ]</span>
+                <a href="profile.php" style="color: var(--neon-blue);">PROFILE</a>
                 <?php if ($_SESSION['role'] === 'admin'): ?>
                     <a href="admin.php" style="color: var(--neon-purple);">ADMIN PANEL</a>
                 <?php endif; ?>
@@ -46,21 +118,43 @@ $products = $stmt->fetchAll();
         <section class="hero">
             <h1>Level Up Your Gear</h1>
             <p>Premium gaming equipment for the elite. Cyber-enhanced performance.</p>
+
+            <form method="GET"
+                style="margin-top: 2rem; display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;">
+                <input type="text" name="search" placeholder="Search gear..." value="<?= htmlspecialchars($search) ?>"
+                    style="padding: 0.8rem; width: 300px; border-radius: 4px; border: 1px solid rgba(255,255,255,0.2); background: rgba(0,0,0,0.5); color: white;">
+
+                <select name="category" onchange="this.form.submit()"
+                    style="padding: 0.8rem; border-radius: 4px; border: 1px solid rgba(255,255,255,0.2); background: rgba(0,0,0,0.5); color: white;">
+                    <option value="">All Categories</option>
+                    <?php foreach ($cats as $c): ?>
+                        <option value="<?= $c ?>" <?= $category === $c ? 'selected' : '' ?>><?= $c ?></option>
+                    <?php endforeach; ?>
+                </select>
+
+                <button type="submit" class="btn-neon"
+                    style="width: auto; margin-top: 0; padding: 0.8rem 2rem;">SEARCH</button>
+            </form>
         </section>
 
-        <div class="product-grid">
-            <?php foreach ($products as $product): ?>
-                <div class="product-card">
-                    <img src="<?= htmlspecialchars($product['image_url']) ?>"
-                        alt="<?= htmlspecialchars($product['name']) ?>" class="product-image">
-                    <div class="product-info">
-                        <span class="product-category"><?= htmlspecialchars($product['category']) ?></span>
-                        <h3><?= htmlspecialchars($product['name']) ?></h3>
-                        <p class="product-price">$<?= number_format($product['price'], 2) ?></p>
-                        <a href="product_detail.php?id=<?= $product['id'] ?>" class="btn btn-primary">VIEW GEAR</a>
+        <div class="product-grid" id="products">
+            <?php if (empty($products)): ?>
+                <p style="grid-column: 1/-1; text-align: center; color: var(--text-muted);">No gear found matching your
+                    criteria.</p>
+            <?php else: ?>
+                <?php foreach ($products as $product): ?>
+                    <div class="product-card">
+                        <img src="<?= htmlspecialchars($product['image_url']) ?>"
+                            alt="<?= htmlspecialchars($product['name']) ?>" class="product-image">
+                        <div class="product-info">
+                            <span class="product-category"><?= htmlspecialchars($product['category']) ?></span>
+                            <h3><?= htmlspecialchars($product['name']) ?></h3>
+                            <p class="product-price">$<?= number_format($product['price'], 2) ?></p>
+                            <a href="product_detail.php?id=<?= $product['id'] ?>" class="btn btn-primary">VIEW GEAR</a>
+                        </div>
                     </div>
-                </div>
-            <?php endforeach; ?>
+                <?php endforeach; ?>
+            <?php endif; ?>
         </div>
     </div>
 
