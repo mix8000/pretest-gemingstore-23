@@ -24,7 +24,11 @@ $products = $stmt->fetchAll();
         <div class="nav-links">
             <a href="#">Home</a>
             <a href="#products">Gear</a>
-            <a href="#about">About</a>
+            <a href="cart.php">CART (
+                <?php
+                echo isset($_SESSION['cart']) ? array_sum($_SESSION['cart']) : 0;
+                ?>
+                )</a>
             <?php if (isset($_SESSION['user_id'])): ?>
                 <span style="color: var(--neon-green); margin-left: 20px;">[
                     <?php echo htmlspecialchars($_SESSION['username']); ?> ]</span>
@@ -53,7 +57,7 @@ $products = $stmt->fetchAll();
                         <span class="product-category"><?= htmlspecialchars($product['category']) ?></span>
                         <h3><?= htmlspecialchars($product['name']) ?></h3>
                         <p class="product-price">$<?= number_format($product['price'], 2) ?></p>
-                        <a href="#" class="btn btn-primary">ADD TO CART</a>
+                        <a href="product_detail.php?id=<?= $product['id'] ?>" class="btn btn-primary">VIEW GEAR</a>
                     </div>
                 </div>
             <?php endforeach; ?>

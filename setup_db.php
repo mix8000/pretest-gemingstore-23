@@ -29,6 +29,31 @@ try {
     $pdo->exec($sqlUsers);
     echo "Table 'users' created successfully.<br>";
 
+    // Create Orders Table
+    $sqlOrders = "CREATE TABLE IF NOT EXISTS orders (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        user_id INT NOT NULL,
+        total_price DECIMAL(10, 2) NOT NULL,
+        status ENUM('pending', 'completed', 'cancelled') DEFAULT 'pending',
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+    )";
+    $pdo->exec($sqlOrders);
+    echo "Table 'orders' created successfully.<br>";
+
+    // Create Order Items Table
+    $sqlOrderItems = "CREATE TABLE IF NOT EXISTS order_items (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        order_id INT NOT NULL,
+        product_id INT NOT NULL,
+        quantity INT NOT NULL,
+        price DECIMAL(10, 2) NOT NULL,
+        FOREIGN KEY (order_id) REFERENCES orders(id) ON DELETE CASCADE,
+        FOREIGN KEY (product_id) REFERENCES products(id) ON DELETE CASCADE
+    )";
+    $pdo->exec($sqlOrderItems);
+    echo "Table 'order_items' created successfully.<br>";
+
     // Upgrade table if exists (Add email/mobile)
     try {
         $pdo->exec("ALTER TABLE users ADD COLUMN email VARCHAR(100)");

@@ -101,6 +101,68 @@ try {
             header('Location: login.php?error=Invalid username or password');
         }
 
+    } elseif ($action === 'add_to_cart') {
+        session_start();
+        $product_id = $_POST['product_id'];
+        $quantity = (int) $_POST['quantity'];
+
+        if (!isset($_SESSION['cart'])) {
+            $_SESSION['cart'] = [];
+        }
+
+        if (isset($_SESSION['cart'][$product_id])) {
+            $_SESSION['cart'][$product_id] += $quantity;
+        } else {
+            $_SESSION['cart'][$product_id] = $quantity;
+        }
+
+        header('Location: cart.php');
+
+    } elseif ($action === 'remove_from_cart') {
+        session_start();
+        $product_id = $_GET['product_id'];
+        unset($_SESSION['cart'][$product_id]);
+        header('Location: cart.php');
+
+    } elseif ($action === 'checkout') {
+        session_start();
+        if (!isset($_SESSION['user_id'])) {
+            header('Location: login.php?error=Please login to checkout');
+            exit;
+        }
+
+        if (empty($_SESSION['cart'])) {
+            header('Location: index.php');
+            exit;
+        }
+
+        // Calculate total and save order
+        $total_price = 0;
+        $order_items = [];
+
+        foreach ($_SESSION['cart'] as $pid => $qty) {
+            $stmt = $pdo->prepare("SELECT price FROM products WHERE id = ?");
+            $stmt->execute([$pid]);
+            $price = $stmt->fetchColumn();
+            $total_price += $price * $qty;
+            $order_items[] = ['pid' => $pid, 'qty' => $qty, 'price' => $price];
+        }
+
+        // Insert Order
+        $stmt = $pdo->prepare("INSERT INTO orders (user_id, total_price) VALUES (?, ?)");
+        $stmt->execute([$_SESSION['user_id'], $total_price]);
+        $order_id = $pdo->lastInsertId();
+
+        // Insert Order Items
+        $stmt = $pdo->prepare("INSERT INTO order_items (order_id, product_id, quantity, price) VALUES (?, ?, ?, ?)");
+        foreach ($order_items as $item) {
+            $stmt->execute([$order_id, $item['pid'], $item['qty'], $item['price']]);
+        }
+
+        // Clear Cart
+        unset($_SESSION['cart']);
+        header('Location: index.php?order_success=1');
+
     } elseif ($action === 'logout') {
         session_start();
         session_destroy();
