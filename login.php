@@ -14,6 +14,11 @@
 <body class="login-page">
     <div class="login-container">
         <h1>Player Login</h1>
+        <?php if (isset($_GET['error'])): ?>
+            <p class="success-message" style="border-color: red; color: red; background: rgba(255,0,0,0.1);">
+                <?= htmlspecialchars($_GET['error']) ?>
+            </p>
+        <?php endif; ?>
         <?php if (isset($_GET['registered'])): ?>
             <p class="success-message">Registration successful! Please login.</p>
         <?php endif; ?>

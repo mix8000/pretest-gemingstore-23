@@ -22,10 +22,25 @@ try {
         username VARCHAR(50) NOT NULL UNIQUE,
         password VARCHAR(255) NOT NULL,
         role ENUM('admin', 'customer') DEFAULT 'customer',
+        email VARCHAR(100),
+        mobile VARCHAR(20),
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     )";
     $pdo->exec($sqlUsers);
     echo "Table 'users' created successfully.<br>";
+
+    // Upgrade table if exists (Add email/mobile)
+    try {
+        $pdo->exec("ALTER TABLE users ADD COLUMN email VARCHAR(100)");
+        echo "Added email column.<br>";
+    } catch (Exception $e) { /* Ignore if exists */
+    }
+
+    try {
+        $pdo->exec("ALTER TABLE users ADD COLUMN mobile VARCHAR(20)");
+        echo "Added mobile column.<br>";
+    } catch (Exception $e) { /* Ignore if exists */
+    }
 
     // Insert Default Admin if not exists
     $stmtUser = $pdo->prepare("SELECT COUNT(*) FROM users WHERE username = 'admin'");

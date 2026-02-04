@@ -42,9 +42,22 @@ try {
         $username = $_POST['username'];
         $password = $_POST['password'];
         $confirm_password = $_POST['confirm_password'];
+        $email = $_POST['email'];
+        $mobile = $_POST['mobile'];
 
+        // Validation
         if ($password !== $confirm_password) {
-            echo "Passwords do not match.";
+            header('Location: register.php?error=Passwords do not match');
+            exit;
+        }
+
+        if (strlen($password) < 8 || !preg_match('/[A-Z]/', $password) || !preg_match('/[a-z]/', $password)) {
+            header('Location: register.php?error=Password must be at least 8 chars, include 1 uppercase and 1 lowercase letter');
+            exit;
+        }
+
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            header('Location: register.php?error=Invalid email format');
             exit;
         }
 
@@ -52,13 +65,13 @@ try {
         $stmt = $pdo->prepare("SELECT COUNT(*) FROM users WHERE username = ?");
         $stmt->execute([$username]);
         if ($stmt->fetchColumn() > 0) {
-            echo "Username already taken.";
+            header('Location: register.php?error=Username already taken');
             exit;
         }
 
         $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-        $stmt = $pdo->prepare("INSERT INTO users (username, password, role) VALUES (?, ?, 'customer')");
-        $stmt->execute([$username, $hashed_password]);
+        $stmt = $pdo->prepare("INSERT INTO users (username, password, role, email, mobile) VALUES (?, ?, 'customer', ?, ?)");
+        $stmt->execute([$username, $hashed_password, $email, $mobile]);
 
         // Auto login or redirect to login
         header('Location: login.php?registered=1');
@@ -85,7 +98,7 @@ try {
                 header('Location: index.php');
             }
         } else {
-            echo "Invalid username or password.";
+            header('Location: login.php?error=Invalid username or password');
         }
 
     } elseif ($action === 'logout') {

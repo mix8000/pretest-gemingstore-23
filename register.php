@@ -14,11 +14,24 @@
 <body class="login-page">
     <div class="login-container">
         <h1>Create Account</h1>
+        <?php if (isset($_GET['error'])): ?>
+            <p class="success-message" style="border-color: red; color: red; background: rgba(255,0,0,0.1);">
+                <?= htmlspecialchars($_GET['error']) ?>
+            </p>
+        <?php endif; ?>
         <form action="api.php" method="POST">
             <input type="hidden" name="action" value="register">
             <div class="form-group">
                 <label>Username</label>
                 <input type="text" name="username" required>
+            </div>
+            <div class="form-group">
+                <label>Email</label>
+                <input type="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label>Mobile Number</label>
+                <input type="tel" name="mobile" required>
             </div>
             <div class="form-group">
                 <label>Password</label>
