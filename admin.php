@@ -1,5 +1,9 @@
 <?php
 require 'db.php';
+require 'auth_check.php';
+checkLogin('admin'); // Enforce Admin Login
+
+// Fetch products
 $stmt = $pdo->query("SELECT * FROM products ORDER BY created_at DESC");
 $products = $stmt->fetchAll();
 ?>
@@ -9,17 +13,18 @@ $products = $stmt->fetchAll();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Panel | NeonGrid</title>
+    <title>Admin Dashboard - Gaming Store</title>
     <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
 </head>
 
 <body>
 
     <nav class="navbar">
-        <div class="logo">NEON<span style="color:white">GRID</span> <span
-                style="font-size:0.8rem; color:var(--neon-green)">ADMIN</span></div>
+        <div class="logo">ADMIN DASHBOARD</div>
         <div class="nav-links">
-            <a href="index.php">Back to Store</a>
+            <a href="index.php">View Store</a>
+            <a href="api.php?action=logout" style="color: #ff3333;">LOGOUT</a>
         </div>
     </nav>
 

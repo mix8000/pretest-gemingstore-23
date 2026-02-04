@@ -247,3 +247,132 @@ h3,
     border-color: var(--neon-blue);
     box-shadow: 0 0 10px rgba(0, 217, 255, 0.2);
 }
+
+/* Login Page Styles */
+.login-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.login-container {
+    background: rgba(10, 10, 15, 0.8);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 3rem;
+    border-radius: 12px;
+    width: 100%;
+    max-width: 400px;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+    text-align: center;
+}
+
+.login-container h1 {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    color: var(--neon-blue);
+    text-shadow: 0 0 10px rgba(0, 217, 255, 0.5);
+}
+
+.login-container .form-group {
+    text-align: left;
+    margin-bottom: 1.5rem;
+}
+
+.login-container label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+}
+
+.login-container input {
+    width: 100%;
+    padding: 0.8rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+    color: white;
+    font-family: 'Inter';
+    font-size: 1rem;
+    transition: 0.3s;
+}
+
+.login-container input:focus {
+    outline: none;
+    border-color: var(--neon-green);
+    box-shadow: 0 0 10px rgba(0, 255, 136, 0.3);
+}
+
+.btn-neon {
+    width: 100%;
+    padding: 1rem;
+    background: var(--neon-green);
+    border: none;
+    border-radius: 4px;
+    font-family: 'Orbitron';
+    font-weight: 700;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: 0.3s;
+    color: black;
+    margin-top: 1rem;
+}
+
+.btn-neon:hover {
+    box-shadow: 0 0 20px rgba(0, 255, 136, 0.6);
+    transform: translateY(-2px);
+}
+
+.login-links {
+    margin-top: 1.5rem;
+    font-size: 0.9rem;
+}
+
+.login-links a {
+    color: var(--neon-purple);
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.login-links a:hover {
+    color: var(--neon-blue);
+    text-shadow: 0 0 5px rgba(0, 217, 255, 0.5);
+}
+
+/* Admin Login Specifics */
+.admin-login .login-container {
+    border-color: rgba(255, 0, 0, 0.2);
+    box-shadow: 0 0 30px rgba(255, 0, 0, 0.1);
+}
+
+.admin-title {
+    color: white !important;
+    text-shadow: none !important;
+}
+
+.accent-red {
+    color: #ff3333;
+    text-shadow: 0 0 15px rgba(255, 51, 51, 0.6);
+}
+
+.btn-red {
+    background: #ff3333;
+    color: white;
+}
+
+.btn-red:hover {
+    background: #ff0000;
+    box-shadow: 0 0 20px rgba(255, 0, 0, 0.6);
+}
+
+.success-message {
+    background: rgba(0, 255, 136, 0.1);
+    border: 1px solid var(--neon-green);
+    color: var(--neon-green);
+    padding: 0.5rem;
+    border-radius: 4px;
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+}

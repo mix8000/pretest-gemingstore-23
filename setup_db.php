@@ -16,6 +16,27 @@ try {
     $pdo->exec($sql);
     echo "Table 'products' created successfully.<br>";
 
+    // Create Users Table
+    $sqlUsers = "CREATE TABLE IF NOT EXISTS users (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        username VARCHAR(50) NOT NULL UNIQUE,
+        password VARCHAR(255) NOT NULL,
+        role ENUM('admin', 'customer') DEFAULT 'customer',
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    )";
+    $pdo->exec($sqlUsers);
+    echo "Table 'users' created successfully.<br>";
+
+    // Insert Default Admin if not exists
+    $stmtUser = $pdo->prepare("SELECT COUNT(*) FROM users WHERE username = 'admin'");
+    $stmtUser->execute();
+    if ($stmtUser->fetchColumn() == 0) {
+        $adminPass = password_hash('admin123', PASSWORD_DEFAULT);
+        $insertAdmin = $pdo->prepare("INSERT INTO users (username, password, role) VALUES (?, ?, 'admin')");
+        $insertAdmin->execute(['admin', $adminPass]);
+        echo "Default admin user created (admin/admin123).<br>";
+    }
+
     // Insert dummy data if empty
     $stmt = $pdo->query("SELECT COUNT(*) FROM products");
     if ($stmt->fetchColumn() == 0) {

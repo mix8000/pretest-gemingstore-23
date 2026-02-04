@@ -1,5 +1,8 @@
 <?php
 require 'db.php';
+session_start();
+
+// Fetch products
 $stmt = $pdo->query("SELECT * FROM products ORDER BY created_at DESC");
 $products = $stmt->fetchAll();
 ?>
@@ -9,17 +12,28 @@ $products = $stmt->fetchAll();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NeonGrid | Gaming Store</title>
+    <title>Gaming Store</title>
     <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
 </head>
 
 <body>
 
     <nav class="navbar">
-        <div class="logo">NEON<span style="color:white">GRID</span></div>
+        <div class="logo">GEMING STORE</div>
         <div class="nav-links">
-            <a href="index.php">Store</a>
-            <a href="admin.php" class="btn-admin">Admin Panel</a>
+            <a href="#">Home</a>
+            <a href="#products">Gear</a>
+            <a href="#about">About</a>
+            <?php if (isset($_SESSION['user_id'])): ?>
+                <span style="color: var(--neon-green); margin-left: 20px;">[ <?php echo htmlspecialchars($_SESSION['username']); ?> ]</span>
+                <?php if ($_SESSION['role'] === 'admin'): ?>
+                    <a href="admin.php" style="color: var(--neon-purple);">ADMIN PANEL</a>
+                <?php endif; ?>
+                <a href="api.php?action=logout" style="color: #ff5555;">LOGOUT</a>
+            <?php else: ?>
+                <a href="login.php" class="btn-admin" style="display:inline-block; border-radius:4px;">LOGIN</a>
+            <?php endif; ?>
         </div>
     </nav>
 
