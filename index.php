@@ -13,7 +13,7 @@ $products = $stmt->fetchAll();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gaming Store</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css?v=<?php echo time(); ?>">
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
 </head>
 
@@ -26,7 +26,8 @@ $products = $stmt->fetchAll();
             <a href="#products">Gear</a>
             <a href="#about">About</a>
             <?php if (isset($_SESSION['user_id'])): ?>
-                <span style="color: var(--neon-green); margin-left: 20px;">[ <?php echo htmlspecialchars($_SESSION['username']); ?> ]</span>
+                <span style="color: var(--neon-green); margin-left: 20px;">[
+                    <?php echo htmlspecialchars($_SESSION['username']); ?> ]</span>
                 <?php if ($_SESSION['role'] === 'admin'): ?>
                     <a href="admin.php" style="color: var(--neon-purple);">ADMIN PANEL</a>
                 <?php endif; ?>
