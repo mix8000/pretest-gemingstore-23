@@ -133,62 +133,61 @@ $orders = $stmt->fetchAll();
             style="margin-top:4rem; margin-bottom: 4rem; max-width:600px; padding:2rem; background:var(--card-bg); border-radius:12px; border:var(--glass-border);">
             <h3><?= isset($_GET['edit']) ? 'Edit Product' : 'Add New Product' ?></h3>
 
-                <?php
-                $editMode = false;
-                if (isset($_GET['edit'])) {
-                    $editId = $_GET['edit'];
-                    $stmt = $pdo->prepare("SELECT * FROM products WHERE id = ?");
-                    $stmt->execute([$editId]);
-                    $editProduct = $stmt->fetch();
-                    if ($editProduct)
-                        $editMode = true;
-                }
-                ?>
+            <?php
+            $editMode = false;
+            if (isset($_GET['edit'])) {
+                $editId = $_GET['edit'];
+                $stmt = $pdo->prepare("SELECT * FROM products WHERE id = ?");
+                $stmt->execute([$editId]);
+                $editProduct = $stmt->fetch();
+                if ($editProduct)
+                    $editMode = true;
+            }
+            ?>
 
-                <form action="api.php" method="POST" style="margin-top:1.5rem;">
-                    <input type="hidden" name="action" value="<?= $editMode ? 'update' : 'create' ?>">
-                    <?php if ($editMode): ?>
-                        <input type="hidden" name="id" value="<?= $editProduct['id'] ?>">
-                    <?php endif; ?>
+            <form action="api.php" method="POST" style="margin-top:1.5rem;">
+                <input type="hidden" name="action" value="<?= $editMode ? 'update' : 'create' ?>">
+                <?php if ($editMode): ?>
+                    <input type="hidden" name="id" value="<?= $editProduct['id'] ?>">
+                <?php endif; ?>
 
-                    <div class="form-group">
-                        <label>Product Name</label>
-                        <input type="text" name="name" class="form-control" required
-                            value="<?= $editMode ? htmlspecialchars($editProduct['name']) : '' ?>">
-                    </div>
+                <div class="form-group">
+                    <label>Product Name</label>
+                    <input type="text" name="name" class="form-control" required
+                        value="<?= $editMode ? htmlspecialchars($editProduct['name']) : '' ?>">
+                </div>
 
-                    <div class="form-group">
-                        <label>Price ($)</label>
-                        <input type="number" step="0.01" name="price" class="form-control" required
-                            value="<?= $editMode ? $editProduct['price'] : '' ?>">
-                    </div>
+                <div class="form-group">
+                    <label>Price ($)</label>
+                    <input type="number" step="0.01" name="price" class="form-control" required
+                        value="<?= $editMode ? $editProduct['price'] : '' ?>">
+                </div>
 
-                    <div class="form-group">
-                        <label>Category</label>
-                        <input type="text" name="category" class="form-control" required
-                            value="<?= $editMode ? htmlspecialchars($editProduct['category']) : '' ?>">
-                    </div>
+                <div class="form-group">
+                    <label>Category</label>
+                    <input type="text" name="category" class="form-control" required
+                        value="<?= $editMode ? htmlspecialchars($editProduct['category']) : '' ?>">
+                </div>
 
-                    <div class="form-group">
-                        <label>Image URL</label>
-                        <input type="text" name="image_url" class="form-control" required
-                            value="<?= $editMode ? htmlspecialchars($editProduct['image_url']) : '' ?>">
-                    </div>
+                <div class="form-group">
+                    <label>Image URL</label>
+                    <input type="text" name="image_url" class="form-control" required
+                        value="<?= $editMode ? htmlspecialchars($editProduct['image_url']) : '' ?>">
+                </div>
 
-                    <div class="form-group">
-                        <label>Description</label>
-                        <textarea name="description" class="form-control"
-                            rows="4"><?= $editMode ? htmlspecialchars($editProduct['description']) : '' ?></textarea>
-                    </div>
+                <div class="form-group">
+                    <label>Description</label>
+                    <textarea name="description" class="form-control"
+                        rows="4"><?= $editMode ? htmlspecialchars($editProduct['description']) : '' ?></textarea>
+                </div>
 
-                    <button type="submit" class="btn btn-primary" style="margin-top:1rem;">
-                        <?= $editMode ? 'UPDATE PRODUCT' : 'ADD PRODUCT' ?>
-                    </button>
-                    <?php if ($editMode): ?>
-                        <a href="admin.php"
-                            style="margin-left:1rem; color:var(--text-muted); text-decoration:none;">Cancel</a>
-                    <?php endif; ?>
-                </form>
+                <button type="submit" class="btn btn-primary" style="margin-top:1rem;">
+                    <?= $editMode ? 'UPDATE PRODUCT' : 'ADD PRODUCT' ?>
+                </button>
+                <?php if ($editMode): ?>
+                    <a href="admin.php" style="margin-left:1rem; color:var(--text-muted); text-decoration:none;">Cancel</a>
+                <?php endif; ?>
+            </form>
         </div>
 
     </div>
