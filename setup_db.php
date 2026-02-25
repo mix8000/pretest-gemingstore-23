@@ -45,10 +45,20 @@ try {
 
     // Upgrade table if exists
     try {
-        $pdo->exec("ALTER TABLE orders ADD COLUMN IF NOT EXISTS payment_slip VARCHAR(255)");
+        // Try adding payment_slip column
+        $pdo->exec("ALTER TABLE orders ADD payment_slip VARCHAR(255)");
+        echo "Added payment_slip column.<br>";
+    } catch (Exception $e) {
+        // Likely already exists
+        echo "payment_slip column already exists or error: " . $e->getMessage() . "<br>";
+    }
+
+    try {
+        // Try modifying status column
         $pdo->exec("ALTER TABLE orders MODIFY COLUMN status ENUM('pending', 'paid', 'completed', 'cancelled') DEFAULT 'pending'");
-        echo "Orders table optimized for payments.<br>";
-    } catch (Exception $e) { /* Ignore */
+        echo "Updated order status enum.<br>";
+    } catch (Exception $e) {
+        echo "Error updating status enum: " . $e->getMessage() . "<br>";
     }
 
     // Create Order Items Table
