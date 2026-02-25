@@ -45,12 +45,21 @@ try {
 
     // Upgrade table if exists
     try {
-        // Try adding payment_slip column
-        $pdo->exec("ALTER TABLE orders ADD payment_slip VARCHAR(255)");
-        echo "Added payment_slip column.<br>";
+        // Try adding payment_slip column first if it doesn't exist
+        $pdo->exec("ALTER TABLE orders ADD IF NOT EXISTS payment_slip TEXT");
+        // Ensure it is TEXT if it already existed as VARCHAR
+        $pdo->exec("ALTER TABLE orders MODIFY COLUMN payment_slip TEXT");
+        echo "Orders table: payment_slip column is ready (TEXT).<br>";
     } catch (Exception $e) {
-        // Likely already exists
-        echo "payment_slip column already exists or error: " . $e->getMessage() . "<br>";
+        echo "Notice for Orders table: " . $e->getMessage() . "<br>";
+    }
+
+    try {
+        // Modify existing image_url to TEXT in products table
+        $pdo->exec("ALTER TABLE products MODIFY COLUMN image_url TEXT");
+        echo "Products table: image_url column optimized to TEXT.<br>";
+    } catch (Exception $e) {
+        echo "Notice for Products table: " . $e->getMessage() . "<br>";
     }
 
     try {
