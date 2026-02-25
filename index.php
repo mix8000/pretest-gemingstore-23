@@ -19,12 +19,13 @@ if (!empty($search)) {
     $params[] = "%$search%";
 }
 
+// Order by category first to make grouping easier, then by date
 $sql .= " ORDER BY category ASC, created_at DESC";
 $stmt = $pdo->prepare($sql);
 $stmt->execute($params);
 $products = $stmt->fetchAll();
 
-// Fetch categories for filter
+// Fetch categories for display in filter pills
 $cats = $pdo->query("SELECT DISTINCT category FROM products")->fetchAll(PDO::FETCH_COLUMN);
 ?>
 <!DOCTYPE html>
@@ -33,9 +34,10 @@ $cats = $pdo->query("SELECT DISTINCT category FROM products")->fetchAll(PDO::FET
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pixel Power</title>
+    <title>Pixel Power - Gaming Store</title>
     <link rel="stylesheet" href="style.css?v=<?php echo time(); ?>">
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Inter:wght@400;600&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         .toast {
@@ -73,8 +75,10 @@ $cats = $pdo->query("SELECT DISTINCT category FROM products")->fetchAll(PDO::FET
         <script>
             setTimeout(() => {
                 const toast = document.getElementById('toast');
-                toast.style.opacity = '0';
-                setTimeout(() => toast.remove(), 500);
+                if (toast) {
+                    toast.style.opacity = '0';
+                    setTimeout(() => toast.remove(), 500);
+                }
             }, 3000);
         </script>
     <?php endif; ?>
@@ -85,8 +89,10 @@ $cats = $pdo->query("SELECT DISTINCT category FROM products")->fetchAll(PDO::FET
         <script>
             setTimeout(() => {
                 const toast = document.getElementById('toast');
-                toast.style.opacity = '0';
-                setTimeout(() => toast.remove(), 500);
+                if (toast) {
+                    toast.style.opacity = '0';
+                    setTimeout(() => toast.remove(), 500);
+                }
             }, 3000);
         </script>
     <?php endif; ?>
@@ -94,13 +100,9 @@ $cats = $pdo->query("SELECT DISTINCT category FROM products")->fetchAll(PDO::FET
     <nav class="navbar">
         <div class="logo">Pixel Power</div>
         <div class="nav-links">
-            <a href="#">หน้าแรก</a>
-            <a href="#products">สินค้า</a>
-            <a href="cart.php">ตะกร้า (
-                <?php
-                echo isset($_SESSION['cart']) ? array_sum($_SESSION['cart']) : 0;
-                ?>
-                )</a>
+            <a href="index.php">หน้าแรก</a>
+            <a href="index.php#products">สินค้า</a>
+            <a href="cart.php">ตะกร้า (<?php echo isset($_SESSION['cart']) ? array_sum($_SESSION['cart']) : 0; ?>)</a>
             <?php if (isset($_SESSION['user_id'])): ?>
                 <span style="color: var(--neon-green); margin-left: 20px;">[
                     <?php echo htmlspecialchars($_SESSION['username']); ?> ]</span>
@@ -116,7 +118,7 @@ $cats = $pdo->query("SELECT DISTINCT category FROM products")->fetchAll(PDO::FET
     </nav>
 
     <div class="container">
-        <!-- New Hero Banner -->
+        <!-- Hero Banner -->
         <div class="hero-banner">
             <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=2000&auto=format&fit=crop"
                 alt="Gaming Banner">
@@ -129,7 +131,7 @@ $cats = $pdo->query("SELECT DISTINCT category FROM products")->fetchAll(PDO::FET
         </div>
 
         <section class="hero" style="padding-top: 0;">
-            <form method="GET"
+            <form method="GET" action="index.php"
                 style="margin-bottom: 3rem; display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;">
                 <input type="text" name="search" placeholder="ค้นหาสินค้า..." value="<?= htmlspecialchars($search) ?>"
                     style="padding: 0.8rem; width: 400px; border-radius: 30px; border: 1px solid rgba(255,255,255,0.2); background: rgba(0,0,0,0.5); color: white; padding-left: 1.5rem;">
@@ -150,69 +152,68 @@ $cats = $pdo->query("SELECT DISTINCT category FROM products")->fetchAll(PDO::FET
 
         <div id="products">
             <?php if (empty($products)): ?>
-                <p style="text-align: center; color: var(--text-muted);">
-                    ไม่พบสินค้าที่ตรงกับการค้นหาของคุณ</p>
+                <p style="text-align: center; color: var(--text-muted); padding: 3rem;">ไม่พบสินค้าที่ตรงกับการค้นหาของคุณ
+                </p>
             <?php else: ?>
-                <?php if (!empty($category)): ?>
+                <?php if (!empty($category) || !empty($search)): ?>
+                    <!-- Single grid view for filtered/searched results -->
                     <div class="product-grid">
-                        <?php ?>
-
-                        <?php
-                        $current_cat = null;
-                        foreach ($products as $index => $product):
-                            // Show category header if we're viewing "All" or if it's a search result
-                            if (empty($category) && $product['category'] !== $current_cat):
-                                if ($current_cat !== null)
-                                    echo '</div></div>'; // Close previous grid and section
-                                $current_cat = $product['category'];
-                                ?>
-                                <div class="category-section">
-                                    <h2 class="category-title">
-                                        <i
-                                            class="fas <?= $current_cat === 'Computer Set' ? 'fa-desktop' : ($current_cat === 'เฟอร์นิเจอร์' ? 'fa-chair' : 'fa-headset') ?>"></i>
-                                        <?= htmlspecialchars($current_cat) ?>
-                                    </h2>
-                                    <div class="product-grid">
-                                    <?php endif; ?>
-
-                                    <div class="product-card">
-                                        <?php if ($index % 3 == 0 && empty($search) && empty($category)): ?>
-                                            <span class="badge badge-sale">ลดราคา</span>
-                                        <?php elseif ($index == 0 && empty($search) && empty($category)): ?>
-                                            <span class="badge badge-new">ใหม่</span>
-                                        <?php endif; ?>
-
-                                        <img src="<?= htmlspecialchars($product['image_url']) ?>"
-                                            alt="<?= htmlspecialchars($product['name']) ?>" class="product-image">
-                                        <div class="product-info" style="flex-grow: 1; display: flex; flex-direction: column;">
-                                            <span class="product-category"><?= htmlspecialchars($product['category']) ?></span>
-                                            <h3 style="margin-bottom: 1rem; line-height: 1.4;">
-                                                <?= htmlspecialchars($product['name']) ?>
-                                            </h3>
-                                            <p class="product-price" style="margin-top: auto; color: var(--neon-green);">
-                                                $<?= number_format($product['price'], 2) ?></p>
-                                            <a href="product_detail.php?id=<?= $product['id'] ?>"
-                                                class="btn btn-primary">ดูรายละเอียด</a>
-                                        </div>
-                                    </div>
-                                <?php endforeach; ?>
-
-                                <?php
-                                if (empty($category)) {
-                                    echo '</div></div>';
-                                } else {
-                                    echo '</div>';
-                                }
-                                ?>
-                            <?php endif; ?>
-                        <?php endif; ?>
+                        <?php foreach ($products as $product): ?>
+                            <div class="product-card">
+                                <img src="<?= htmlspecialchars($product['image_url']) ?>"
+                                    alt="<?= htmlspecialchars($product['name']) ?>" class="product-image">
+                                <div class="product-info" style="flex-grow: 1; display: flex; flex-direction: column;">
+                                    <span class="product-category"><?= htmlspecialchars($product['category']) ?></span>
+                                    <h3 style="margin-bottom: 1rem; line-height: 1.4;"><?= htmlspecialchars($product['name']) ?>
+                                    </h3>
+                                    <p class="product-price" style="margin-top: auto; color: var(--neon-green);">
+                                        $<?= number_format($product['price'], 2) ?></p>
+                                    <a href="product_detail.php?id=<?= $product['id'] ?>" class="btn btn-primary">ดูรายละเอียด</a>
+                                </div>
+                            </div>
+                        <?php endforeach; ?>
                     </div>
-                </div>
+                <?php else: ?>
+                    <!-- Grouped view for the main page -->
+                    <?php
+                    $current_cat = null;
+                    foreach ($products as $index => $product):
+                        if ($product['category'] !== $current_cat):
+                            if ($current_cat !== null)
+                                echo '</div></div>'; // Close previous product-grid and category-section
+                            $current_cat = $product['category'];
+                            ?>
+                            <div class="category-section">
+                                <h2 class="category-title">
+                                    <i
+                                        class="fas <?= $current_cat === 'Computer Set' ? 'fa-desktop' : ($current_cat === 'เฟอร์นิเจอร์' ? 'fa-chair' : 'fa-headset') ?>"></i>
+                                    <?= htmlspecialchars($current_cat) ?>
+                                </h2>
+                                <div class="product-grid">
+                                <?php endif; ?>
+                                <div class="product-card">
+                                    <?php if ($index % 3 == 0): ?><span class="badge badge-sale">ลดราคา</span><?php endif; ?>
+                                    <img src="<?= htmlspecialchars($product['image_url']) ?>"
+                                        alt="<?= htmlspecialchars($product['name']) ?>" class="product-image">
+                                    <div class="product-info" style="flex-grow: 1; display: flex; flex-direction: column;">
+                                        <span class="product-category"><?= htmlspecialchars($product['category']) ?></span>
+                                        <h3 style="margin-bottom: 1rem; line-height: 1.4;"><?= htmlspecialchars($product['name']) ?>
+                                        </h3>
+                                        <p class="product-price" style="margin-top: auto; color: var(--neon-green);">
+                                            $<?= number_format($product['price'], 2) ?></p>
+                                        <a href="product_detail.php?id=<?= $product['id'] ?>"
+                                            class="btn btn-primary">ดูรายละเอียด</a>
+                                    </div>
+                                </div>
+                            <?php endforeach; ?>
+                        </div>
+                    </div> <!-- Close last product-grid and category-section -->
+                <?php endif; ?>
+            <?php endif; ?>
+        </div>
+    </div>
 
-            </div>
-
-            <?php include 'footer.php'; ?>
-
+    <?php include 'footer.php'; ?>
 </body>
 
 </html>
