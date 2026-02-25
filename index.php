@@ -33,7 +33,7 @@ $cats = $pdo->query("SELECT DISTINCT category FROM products")->fetchAll(PDO::FET
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ร้านเกม</title>
+    <title>Pixel Power</title>
     <link rel="stylesheet" href="style.css?v=<?php echo time(); ?>">
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -92,7 +92,7 @@ $cats = $pdo->query("SELECT DISTINCT category FROM products")->fetchAll(PDO::FET
     <?php endif; ?>
 
     <nav class="navbar">
-        <div class="logo">ร้านเกม</div>
+        <div class="logo">Pixel Power</div>
         <div class="nav-links">
             <a href="#">หน้าแรก</a>
             <a href="#products">สินค้า</a>

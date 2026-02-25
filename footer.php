@@ -1,7 +1,7 @@
 <footer class="footer">
     <div class="footer-grid">
         <div class="footer-col">
-            <div class="logo" style="margin-bottom: 1.5rem;">ร้านเกม</div>
+            <div class="logo" style="margin-bottom: 1.5rem;">Pixel Power</div>
             <p style="color: var(--text-muted); line-height: 1.6;">
                 ศูนย์รวมอุปกรณ์เกมมิ่งเกียร์และคอมพิวเตอร์ประกอบสำหรับสตรีมเมอร์และนักแข่งมืออาชีพ
                 ยกระดับการเล่นเกมของคุณให้เหนือกว่าใคร
@@ -33,6 +33,6 @@
         </div>
     </div>
     <div class="footer-bottom">
-        &copy; 2025 ร้านเกม. All Rights Reserved. Professional Gaming Gear.
+        &copy; 2025 Pixel Power. All Rights Reserved. Professional Gaming Gear.
     </div>
 </footer>

@@ -17,7 +17,7 @@ $orders = $stmt->fetchAll();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ระบบหลังบ้าน - ร้านเกม</title>
+    <title>ระบบหลังบ้าน - Pixel Power</title>
     <link rel="stylesheet" href="style.css?v=<?php echo time(); ?>">
     <link
         href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Oswald:wght@300;400;700&display=swap"

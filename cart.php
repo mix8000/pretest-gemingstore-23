@@ -26,7 +26,7 @@ if (!empty($_SESSION['cart'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ตะกร้าของคุณ - ร้านเกม</title>
+    <title>ตะกร้าของคุณ - Pixel Power</title>
     <link rel="stylesheet" href="style.css?v=<?php echo time(); ?>">
     <link
         href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Oswald:wght@300;400;700&display=swap"
@@ -37,7 +37,7 @@ if (!empty($_SESSION['cart'])) {
 
 <body>
     <nav class="navbar">
-        <div class="logo">ร้านเกม</div>
+        <div class="logo">Pixel Power</div>
         <div class="nav-links">
             <a href="index.php">หน้าแรก</a>
             <a href="cart.php">ตะกร้า (<?php echo isset($_SESSION['cart']) ? array_sum($_SESSION['cart']) : 0; ?>)</a>

@@ -14,7 +14,7 @@ $orders = $stmt->fetchAll();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>โปรไฟล์ของฉัน - ร้านเกม</title>
+    <title>โปรไฟล์ของฉัน - Pixel Power</title>
     <link rel="stylesheet" href="style.css?v=<?php echo time(); ?>">
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -22,7 +22,7 @@ $orders = $stmt->fetchAll();
 
 <body>
     <nav class="navbar">
-        <div class="logo">ร้านเกม</div>
+        <div class="logo">Pixel Power</div>
         <div class="nav-links">
             <a href="index.php">หน้าแรก</a>
             <a href="cart.php">ตะกร้า (<?php echo isset($_SESSION['cart']) ? array_sum($_SESSION['cart']) : 0; ?>)</a>
