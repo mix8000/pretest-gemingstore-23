@@ -35,17 +35,19 @@ try {
         user_id INT NOT NULL,
         total_price DECIMAL(10, 2) NOT NULL,
         address TEXT,
-        status ENUM('pending', 'completed', 'cancelled') DEFAULT 'pending',
+        payment_slip VARCHAR(255),
+        status ENUM('pending', 'paid', 'completed', 'cancelled') DEFAULT 'pending',
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
         FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
     )";
     $pdo->exec($sqlOrders);
-    echo "Table 'orders' created successfully.<br>";
+    echo "Table 'orders' updated successfully with payment_slip.<br>";
 
-    // Upgrade table if exists (Add address)
+    // Upgrade table if exists
     try {
-        $pdo->exec("ALTER TABLE orders ADD COLUMN address TEXT");
-        echo "Added address column to orders.<br>";
+        $pdo->exec("ALTER TABLE orders ADD COLUMN IF NOT EXISTS payment_slip VARCHAR(255)");
+        $pdo->exec("ALTER TABLE orders MODIFY COLUMN status ENUM('pending', 'paid', 'completed', 'cancelled') DEFAULT 'pending'");
+        echo "Orders table optimized for payments.<br>";
     } catch (Exception $e) { /* Ignore */
     }
 

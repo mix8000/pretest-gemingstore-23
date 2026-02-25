@@ -173,7 +173,54 @@ try {
 
         // Clear Cart
         unset($_SESSION['cart']);
-        header('Location: index.php?order_success=1');
+        header("Location: payment.php?order_id=$order_id");
+
+    } elseif ($action === 'upload_slip') {
+        session_start();
+        if (!isset($_SESSION['user_id'])) {
+            header('Location: login.php');
+            exit;
+        }
+
+        $order_id = $_POST['order_id'];
+        $slip = $_FILES['slip'];
+
+        if ($slip['error'] === 0) {
+            $upload_dir = 'uploads/slips/';
+            if (!is_dir($upload_dir)) {
+                mkdir($upload_dir, 0777, true);
+            }
+
+            $file_ext = pathinfo($slip['name'], PATHINFO_EXTENSION);
+            $file_name = 'slip_' . $order_id . '_' . time() . '.' . $file_ext;
+            $target_file = $upload_dir . $file_name;
+
+            if (move_uploaded_file($slip['tmp_name'], $target_file)) {
+                $stmt = $pdo->prepare("UPDATE orders SET payment_slip = ?, status = 'paid' WHERE id = ? AND user_id = ?");
+                $stmt->execute([$target_file, $order_id, $_SESSION['user_id']]);
+                header('Location: index.php?order_success=1');
+                exit;
+            } else {
+                header("Location: payment.php?order_id=$order_id&error=failed_to_upload");
+                exit;
+            }
+        } else {
+            header("Location: payment.php?order_id=$order_id&error=invalid_file");
+            exit;
+        }
+
+    } elseif ($action === 'complete_order') {
+        session_start();
+        if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
+            header('Location: login.php');
+            exit;
+        }
+
+        $order_id = $_GET['order_id'];
+        $stmt = $pdo->prepare("UPDATE orders SET status = 'completed' WHERE id = ?");
+        $stmt->execute([$order_id]);
+        header('Location: admin.php');
+        exit;
 
     } elseif ($action === 'logout') {
         session_start();

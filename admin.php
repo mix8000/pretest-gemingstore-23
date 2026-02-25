@@ -58,7 +58,10 @@ $orders = $stmt->fetchAll();
                         <th>ลูกค้า</th>
                         <th>ยอดรวม</th>
                         <th>วันที่สั่งซื้อ</th>
+                        <th>สถานะ</th>
+                        <th>หลักฐานการโอน</th>
                         <th>สินค้า</th>
+                        <th>จัดการ</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -77,6 +80,22 @@ $orders = $stmt->fetchAll();
                                 <?= $order['created_at'] ?>
                             </td>
                             <td>
+                                <span class="status-badge"
+                                    style="padding: 4px 8px; border-radius: 4px; font-size: 0.8rem; background: <?= $order['status'] === 'completed' ? 'var(--neon-green)' : ($order['status'] === 'paid' ? 'var(--neon-blue)' : 'var(--text-muted)') ?>; color: #fff;">
+                                    <?= strtoupper($order['status']) ?>
+                                </span>
+                            </td>
+                            <td>
+                                <?php if ($order['payment_slip']): ?>
+                                    <a href="<?= htmlspecialchars($order['payment_slip']) ?>" target="_blank"
+                                        style="color: var(--neon-blue);">
+                                        <i class="fas fa-image"></i> ดูหลักฐาน
+                                    </a>
+                                <?php else: ?>
+                                    <span style="color: var(--text-muted);">ไม่มีหลักฐาน</span>
+                                <?php endif; ?>
+                            </td>
+                            <td>
                                 <?php
                                 $stmtItems = $pdo->prepare("SELECT order_items.*, products.name FROM order_items JOIN products ON order_items.product_id = products.id WHERE order_id = ?");
                                 $stmtItems->execute([$order['id']]);
@@ -85,6 +104,12 @@ $orders = $stmt->fetchAll();
                                     echo "<div>" . htmlspecialchars($item['name']) . " x" . $item['quantity'] . "</div>";
                                 }
                                 ?>
+                            </td>
+                            <td>
+                                <?php if ($order['status'] === 'paid'): ?>
+                                    <a href="api.php?action=complete_order&order_id=<?= $order['id'] ?>" class="btn btn-primary"
+                                        style="padding: 4px 8px; font-size: 0.8rem;">อนุมัติการโอน</a>
+                                <?php endif; ?>
                             </td>
                         </tr>
                     <?php endforeach; ?>

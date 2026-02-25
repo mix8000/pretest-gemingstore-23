@@ -59,9 +59,15 @@ $orders = $stmt->fetchAll();
                                 <span style="color: var(--neon-purple); font-weight: bold;">รายการสั่งซื้อ #
                                     <?= $order['id'] ?>
                                 </span>
-                                <span style="color: var(--text-muted);">
-                                    <?= $order['created_at'] ?>
-                                </span>
+                                <div style="display: flex; align-items: center; gap: 10px;">
+                                    <span class="status-badge"
+                                        style="padding: 2px 8px; border-radius: 4px; font-size: 0.75rem; background: <?= $order['status'] === 'completed' ? 'var(--neon-green)' : ($order['status'] === 'paid' ? 'var(--neon-blue)' : 'var(--text-muted)') ?>; color: #fff;">
+                                        <?= strtoupper($order['status']) ?>
+                                    </span>
+                                    <span style="color: var(--text-muted);">
+                                        <?= $order['created_at'] ?>
+                                    </span>
+                                </div>
                             </div>
                             <div style="margin-bottom: 1rem;">
                                 <?php
@@ -76,9 +82,16 @@ $orders = $stmt->fetchAll();
                                 }
                                 ?>
                             </div>
-                            <div style="text-align: right; color: var(--neon-green); font-weight: bold; font-size: 1.1rem;">
-                                ยอดรวมทั้งหมด: $
-                                <?= number_format($order['total_price'], 2) ?>
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 1rem;">
+                                <div>
+                                    <?php if ($order['status'] === 'pending'): ?>
+                                        <a href="payment.php?order_id=<?= $order['id'] ?>" class="btn-neon"
+                                            style="padding: 0.5rem 1rem; font-size: 0.8rem; text-decoration: none;">จ่ายเงินที่นี่</a>
+                                    <?php endif; ?>
+                                </div>
+                                <div style="color: var(--neon-green); font-weight: bold; font-size: 1.1rem;">
+                                    ยอดรวมทั้งหมด: $<?= number_format($order['total_price'], 2) ?>
+                                </div>
                             </div>
                             <?php if (!empty($order['address'])): ?>
                                 <div
