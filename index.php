@@ -19,7 +19,7 @@ if (!empty($search)) {
     $params[] = "%$search%";
 }
 
-$sql .= " ORDER BY created_at DESC";
+$sql .= " ORDER BY category ASC, created_at DESC";
 $stmt = $pdo->prepare($sql);
 $stmt->execute($params);
 $products = $stmt->fetchAll();
@@ -148,37 +148,70 @@ $cats = $pdo->query("SELECT DISTINCT category FROM products")->fetchAll(PDO::FET
             </div>
         </section>
 
-        <div class="product-grid" id="products">
+        <div id="products">
             <?php if (empty($products)): ?>
-                <p style="grid-column: 1/-1; text-align: center; color: var(--text-muted);">
+                <p style="text-align: center; color: var(--text-muted);">
                     ไม่พบสินค้าที่ตรงกับการค้นหาของคุณ</p>
             <?php else: ?>
-                <?php foreach ($products as $index => $product): ?>
-                    <div class="product-card">
-                        <?php if ($index % 3 == 0): ?>
-                            <span class="badge badge-sale">ลดราคา</span>
-                        <?php elseif ($index == 0): ?>
-                            <span class="badge badge-new">ใหม่</span>
+                <?php if (!empty($category)): ?>
+                    <div class="product-grid">
+                        <?php ?>
+
+                        <?php
+                        $current_cat = null;
+                        foreach ($products as $index => $product):
+                            // Show category header if we're viewing "All" or if it's a search result
+                            if (empty($category) && $product['category'] !== $current_cat):
+                                if ($current_cat !== null)
+                                    echo '</div></div>'; // Close previous grid and section
+                                $current_cat = $product['category'];
+                                ?>
+                                <div class="category-section">
+                                    <h2 class="category-title">
+                                        <i
+                                            class="fas <?= $current_cat === 'Computer Set' ? 'fa-desktop' : ($current_cat === 'เฟอร์นิเจอร์' ? 'fa-chair' : 'fa-headset') ?>"></i>
+                                        <?= htmlspecialchars($current_cat) ?>
+                                    </h2>
+                                    <div class="product-grid">
+                                    <?php endif; ?>
+
+                                    <div class="product-card">
+                                        <?php if ($index % 3 == 0 && empty($search) && empty($category)): ?>
+                                            <span class="badge badge-sale">ลดราคา</span>
+                                        <?php elseif ($index == 0 && empty($search) && empty($category)): ?>
+                                            <span class="badge badge-new">ใหม่</span>
+                                        <?php endif; ?>
+
+                                        <img src="<?= htmlspecialchars($product['image_url']) ?>"
+                                            alt="<?= htmlspecialchars($product['name']) ?>" class="product-image">
+                                        <div class="product-info" style="flex-grow: 1; display: flex; flex-direction: column;">
+                                            <span class="product-category"><?= htmlspecialchars($product['category']) ?></span>
+                                            <h3 style="margin-bottom: 1rem; line-height: 1.4;">
+                                                <?= htmlspecialchars($product['name']) ?>
+                                            </h3>
+                                            <p class="product-price" style="margin-top: auto; color: var(--neon-green);">
+                                                $<?= number_format($product['price'], 2) ?></p>
+                                            <a href="product_detail.php?id=<?= $product['id'] ?>"
+                                                class="btn btn-primary">ดูรายละเอียด</a>
+                                        </div>
+                                    </div>
+                                <?php endforeach; ?>
+
+                                <?php
+                                if (empty($category)) {
+                                    echo '</div></div>';
+                                } else {
+                                    echo '</div>';
+                                }
+                                ?>
+                            <?php endif; ?>
                         <?php endif; ?>
-
-                        <img src="<?= htmlspecialchars($product['image_url']) ?>"
-                            alt="<?= htmlspecialchars($product['name']) ?>" class="product-image">
-                        <div class="product-info" style="flex-grow: 1; display: flex; flex-direction: column;">
-                            <span class="product-category"><?= htmlspecialchars($product['category']) ?></span>
-                            <h3 style="margin-bottom: 1rem; line-height: 1.4;"><?= htmlspecialchars($product['name']) ?></h3>
-                            <p class="product-price" style="margin-top: auto; color: var(--neon-green);">
-                                $<?= number_format($product['price'], 2) ?></p>
-                            <a href="product_detail.php?id=<?= $product['id'] ?>" class="btn btn-primary">ดูรายละเอียด</a>
-                        </div>
                     </div>
-                <?php endforeach; ?>
-            <?php endif; ?>
-        </div>
-    </div>
+                </div>
 
-    </div>
+            </div>
 
-    <?php include 'footer.php'; ?>
+            <?php include 'footer.php'; ?>
 
 </body>
 
