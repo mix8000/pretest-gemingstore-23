@@ -110,16 +110,48 @@ try {
     $stmt = $pdo->query("SELECT COUNT(*) FROM products");
     if ($stmt->fetchColumn() == 0) {
         $dummyData = [
-            ['หูฟังนีออนไซเบอร์', 1500.00, 'เสียงความคมชัดสูงพร้อมแสงนีออน', 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?q=80&w=1000&auto=format&fit=crop', 'อุปกรณ์'],
-            ['คีย์บอร์ดเมชา X', 2500.00, 'สวิตช์เชิงกลพร้อมไฟ RGB', 'https://images.unsplash.com/photo-1511467687858-23d96c32e4ae?q=80&w=1000&auto=format&fit=crop', 'อุปกรณ์'],
-            ['เมาส์ควอนตัม', 900.00, 'เมาส์ไร้สายความหน่วงต่ำมาก', 'https://images.unsplash.com/photo-1527814050087-3793815479db?q=80&w=1000&auto=format&fit=crop', 'อุปกรณ์']
+            [
+                'หูฟังนีออนไซเบอร์ (Neon Cyber Pro)',
+                1500.00,
+                "ระบบเสียงเซอร์ราวด์ 7.1 สมจริงที่สุดสำหรับการเล่นเกม\n- ไดรเวอร์ขนาด 50 มม. ให้เสียงเบสที่หนักแน่นและชัดเจน\n- แสงไฟ RGB Neon ปรับแต่งได้ 16.8 ล้านสี\n- ไมโครโฟนตัดเสียงรบกวน (Noise Cancelling) ระดับโปร\n- ฟองน้ำรองหูแบบเมมโมรี่โฟม ใส่สบายตลอดการเล่นเกมที่ยาวนาน",
+                'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?q=80&w=1000&auto=format&fit=crop',
+                'อุปกรณ์เกียร์'
+            ],
+            [
+                'คีย์บอร์ดเมชา X (Mechanical Mecha-X)',
+                2500.00,
+                "คีย์บอร์ดแมคคานิคอลสำหรับการแข่งขันอีสปอร์ตระดับโลก\n- เลือกสวิตช์ได้: Blue/Red/Brown Switch ตามสไตล์ของคุณ\n- โครงสร้างอลูมิเนียมเกรดอากาศยาน แข็งแรงทนทาน\n- Full Anti-Ghosting กดพร้อมกันได้ทุกปุ่ม\n- พร้อมที่พักข้อมือแบบถอดออกได้",
+                'https://images.unsplash.com/photo-1511467687858-23d96c32e4ae?q=80&w=1000&auto=format&fit=crop',
+                'อุปกรณ์เกียร์'
+            ],
+            [
+                'เมาส์ควอนตัม (Quantum Wireless Mouse)',
+                900.00,
+                "เมาส์ไร้สายความไวสูง 25,600 DPI แม่นยำทุกการสะบัดเมาส์\n- เทคโนโลยีไร้สายความเร็วสูง 1ms ไม่มีความหน่วง\n- น้ำหนักเบาเพียง 63 กรัม เพื่อความรวดเร็วสูงสุด\n- แบตเตอรี่ใช้งานได้นานถึง 70 ชั่วโมงต่อการชาร์จหนึ่งครั้ง\n- เซนเซอร์ออปติคอลระดับไฮเอนด์",
+                'https://images.unsplash.com/photo-1527814050087-3793815479db?q=80&w=1000&auto=format&fit=crop',
+                'อุปกรณ์เกียร์'
+            ],
+            [
+                'คอมพิวเตอร์เซ็ต: TITAN-X ULTIMATE',
+                45000.00,
+                "สุดยอดคอมพิวเตอร์ประกอบสำหรับสตรีมเมอร์และนักแข่งมือโปร\n- CPU: Intel Core i9-14900K Turbo 6.0GHz\n- GPU: NVIDIA RTX 4090 24GB สุดแรงทุกเฟรมเรต\n- RAM: 64GB DDR5 RGB High Speed\n- Storage: 2TB NVMe Gen5 SSD\n- Cooling: ระบบระบายความร้อนด้วยน้ำแบบเปิด",
+                'https://images.unsplash.com/photo-1587202372775-e229f172b9d7?q=80&w=1000&auto=format&fit=crop',
+                'Computer Set'
+            ],
+            [
+                'เก้าอี้เกมมิ่ง Omega Throne',
+                5500.00,
+                "นั่งสบายเหมือนนั่งบนบัลลังก์ พร้อมลุยทุกสมรภูมิ\n- หนัง PU เกรดพรีเมียม ระบายอากาศได้ดี\n- ปรับเอนได้ถึง 155 องศา พร้อมล็อคตำแหน่ง\n- พนักพิงแขนแบบ 4D ปรับได้ทุกทิศทาง\n- โครงเหล็กแข็งแรงพิเศษ รองรับน้ำหนักถึง 150 กก.",
+                'https://images.unsplash.com/photo-1598550476439-6847785fce6e?q=80&w=1000&auto=format&fit=crop',
+                'เฟอร์นิเจอร์'
+            ]
         ];
 
         $insert = $pdo->prepare("INSERT INTO products (name, price, description, image_url, category) VALUES (?, ?, ?, ?, ?)");
         foreach ($dummyData as $item) {
             $insert->execute($item);
         }
-        echo "Dummy data inserted.<br>";
+        echo "Expanded dummy data inserted.<br>";
     }
 
 } catch (PDOException $e) {
