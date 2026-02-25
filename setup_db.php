@@ -144,33 +144,33 @@ try {
                 "นั่งสบายเหมือนนั่งบนบัลลังก์ พร้อมลุยทุกสมรภูมิ\n- หนัง PU เกรดพรีเมียม ระบายอากาศได้ดี\n- ปรับเอนได้ถึง 155 องศา พร้อมล็อคตำแหน่ง\n- พนักพิงแขนแบบ 4D ปรับได้ทุกทิศทาง\n- โครงเหล็กแข็งแรงพิเศษ รองรับน้ำหนักถึง 150 กก.",
                 'https://images.unsplash.com/photo-1598550476439-6847785fce6e?q=80&w=1000&auto=format&fit=crop',
                 'เฟอร์นิเจอร์'
-            ]
+            ],
             [
-                'Pro Streamer Set Ultimate God Tier', 
-                89000.00, 
-                "ชุดคอมพิวเตอร์สำหรับการสตรีมเมอร์ระดับแนวหน้าที่ต้องการความสมบูรณ์แบบสูงสุด\n\n[Specifications]\n- CPU: AMD Ryzen 9 7950X3D (16 Cores, 32 Threads)\n- GPU: Galax RTX 4090 Hall of Fame (Extreme Overclock Edition)\n- RAM: 128GB DDR5 6000MHz (32GBx4)\n- Storage: 4TB NVMe SSD PCIe 5.0 (Dual Drive 2TB+2TB)\n- Audio: External GoXLR Professional Mixer included\n- Camera: 4K Stream Cam Pro & Elgato Facecam Pro\n- Special: Includes Elgato Stream Deck XL", 
-                'https://images.unsplash.com/photo-1593305841991-05c297ba4575?q=80&w=1000&auto=format&fit=crop', 
+                'Pro Streamer Set Ultimate God Tier',
+                89000.00,
+                "ชุดคอมพิวเตอร์สำหรับการสตรีมเมอร์ระดับแนวหน้าที่ต้องการความสมบูรณ์แบบสูงสุด\n\n[Specifications]\n- CPU: AMD Ryzen 9 7950X3D (16 Cores, 32 Threads)\n- GPU: Galax RTX 4090 Hall of Fame (Extreme Overclock Edition)\n- RAM: 128GB DDR5 6000MHz (32GBx4)\n- Storage: 4TB NVMe SSD PCIe 5.0 (Dual Drive 2TB+2TB)\n- Audio: External GoXLR Professional Mixer included\n- Camera: 4K Stream Cam Pro & Elgato Facecam Pro\n- Special: Includes Elgato Stream Deck XL",
+                'https://images.unsplash.com/photo-1593305841991-05c297ba4575?q=80&w=1000&auto=format&fit=crop',
                 'Computer Set'
             ],
             [
-                'Budget Warrior Set', 
-                15900.00, 
-                "คอมพิวเตอร์สเปกคุ้มค่า สำหรับผู้เริ่มต้นเข้าสู่โลกการเล่นเกม\n\n[Specifications]\n- CPU: AMD Ryzen 5 5600G (Integrated Graphics Power)\n- RAM: 16GB DDR4 3200MHz\n- Storage: 500GB NVMe SSD\n- PSU: 550W 80+ Bronze\n- Case: Minimalist Mesh Flow Design\n- Bonus: มาพร้อมเมาส์และคีย์บอร์ดพื้นฐานพร้อมเล่นทันที", 
-                'https://images.unsplash.com/photo-1547082299-de196ea013d6?q=80&w=1000&auto=format&fit=crop', 
+                'Budget Warrior Set',
+                15900.00,
+                "คอมพิวเตอร์สเปกคุ้มค่า สำหรับผู้เริ่มต้นเข้าสู่โลกการเล่นเกม\n\n[Specifications]\n- CPU: AMD Ryzen 5 5600G (Integrated Graphics Power)\n- RAM: 16GB DDR4 3200MHz\n- Storage: 500GB NVMe SSD\n- PSU: 550W 80+ Bronze\n- Case: Minimalist Mesh Flow Design\n- Bonus: มาพร้อมเมาส์และคีย์บอร์ดพื้นฐานพร้อมเล่นทันที",
+                'https://images.unsplash.com/photo-1547082299-de196ea013d6?q=80&w=1000&auto=format&fit=crop',
                 'Computer Set'
             ],
             [
-                'Shadow Phoenix Gaming PC', 
-                32500.00, 
-                "ดีไซน์ดุดันดั่งนกฟีนิกซ์จากเถ้าถ่าน พร้อมลุยทุกเกม AAA\n\n[Specifications]\n- CPU: Intel Core i5-13400F\n- GPU: NVIDIA RTX 3060 Ti 8GB Shadow Edition\n- RAM: 32GB DDR4 3600MHz\n- Storage: 1TB NVMe Gen4 SSD\n- Case: Special Edition Shadow Phoenix ARGB\n- Cooling: Air Cooler High Performance with 6 ARGB Fans", 
-                'https://images.unsplash.com/photo-1616588589676-62b3bd4ff6d2?q=80&w=1000&auto=format&fit=crop', 
+                'Shadow Phoenix Gaming PC',
+                32500.00,
+                "ดีไซน์ดุดันดั่งนกฟีนิกซ์จากเถ้าถ่าน พร้อมลุยทุกเกม AAA\n\n[Specifications]\n- CPU: Intel Core i5-13400F\n- GPU: NVIDIA RTX 3060 Ti 8GB Shadow Edition\n- RAM: 32GB DDR4 3600MHz\n- Storage: 1TB NVMe Gen4 SSD\n- Case: Special Edition Shadow Phoenix ARGB\n- Cooling: Air Cooler High Performance with 6 ARGB Fans",
+                'https://images.unsplash.com/photo-1616588589676-62b3bd4ff6d2?q=80&w=1000&auto=format&fit=crop',
                 'Computer Set'
             ],
             [
-                'Pixel Overlord Custom Build', 
-                125000.00, 
-                "ที่สุดของงานศิลปะและเทคโนโลยีคอมพิวเตอร์ 'เหนือกว่าทุกระดับ'\n\n[Ultimate Specs]\n- CPU: Threadripper 7960X (24 Cores / 48 Threads)\n- GPU: Dual NVIDIA RTX 4090 24GB NVLink Ready (Custom Watercooled)\n- RAM: 256GB RAM DDR5 Quad-Channel\n- Storage: 8TB Gen5 RAID 0 Configuration\n- Case: Custom Open Frame 'Overlord' Premium Design\n- Cooling: Full Custom Hard-Tube Cooling with Gold-Plated Fittings", 
-                'https://images.unsplash.com/photo-1525547719571-a2d4ac8945e2?q=80&w=1000&auto=format&fit=crop', 
+                'Pixel Overlord Custom Build',
+                125000.00,
+                "ที่สุดของงานศิลปะและเทคโนโลยีคอมพิวเตอร์ 'เหนือกว่าทุกระดับ'\n\n[Ultimate Specs]\n- CPU: Threadripper 7960X (24 Cores / 48 Threads)\n- GPU: Dual NVIDIA RTX 4090 24GB NVLink Ready (Custom Watercooled)\n- RAM: 256GB RAM DDR5 Quad-Channel\n- Storage: 8TB Gen5 RAID 0 Configuration\n- Case: Custom Open Frame 'Overlord' Premium Design\n- Cooling: Full Custom Hard-Tube Cooling with Gold-Plated Fittings",
+                'https://images.unsplash.com/photo-1525547719571-a2d4ac8945e2?q=80&w=1000&auto=format&fit=crop',
                 'Computer Set'
             ]
         ];

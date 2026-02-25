@@ -13,7 +13,7 @@
 
 <body class="login-page">
     <div class="login-container">
-        <h1>เข้าสู่ระบบผู้เล่น</h1>
+        <h1>เข้าสู่ระบบ</h1>
         <?php if (isset($_GET['error'])): ?>
             <p class="success-message" style="border-color: red; color: red; background: rgba(255,0,0,0.1);">
                 <?= htmlspecialchars($_GET['error']) ?>
