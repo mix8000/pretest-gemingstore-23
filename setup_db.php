@@ -8,7 +8,7 @@ try {
         name VARCHAR(255) NOT NULL,
         price DECIMAL(10, 2) NOT NULL,
         description TEXT,
-        image_url VARCHAR(255),
+        image_url TEXT,
         category VARCHAR(100),
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     )";
