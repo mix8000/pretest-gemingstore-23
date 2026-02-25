@@ -26,38 +26,38 @@ if (!empty($_SESSION['cart'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your Cart - Gaming Store</title>
+    <title>ตะกร้าของคุณ - ร้านเกม</title>
     <link rel="stylesheet" href="style.css?v=<?php echo time(); ?>">
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
 </head>
 
 <body>
     <nav class="navbar">
-        <div class="logo">GEMING STORE</div>
+        <div class="logo">ร้านเกม</div>
         <div class="nav-links">
-            <a href="index.php">Continue Shopping</a>
+            <a href="index.php">เลือกซื้อสินค้าต่อ</a>
         </div>
     </nav>
 
     <div class="container">
         <section class="hero" style="padding: 2rem 0;">
-            <h1>Command Center LOOT</h1>
+            <h1>รายการสินค้าในตะกร้า</h1>
         </section>
 
         <?php if (empty($cart_items)): ?>
             <div style="text-align: center; color: var(--text-muted); padding: 3rem;">
-                <h2>Your inventory is empty.</h2>
-                <a href="index.php" class="btn btn-primary" style="margin-top: 1rem;">BROWSE GEAR</a>
+                <h2>ตะกร้าของคุณยังว่างอยู่</h2>
+                <a href="index.php" class="btn btn-primary" style="margin-top: 1rem;">เลือกซื้อสินค้าสด</a>
             </div>
         <?php else: ?>
             <table class="admin-table">
                 <thead>
                     <tr>
-                        <th>Gear</th>
-                        <th>Price</th>
-                        <th>Quantity</th>
-                        <th>Total</th>
-                        <th>Action</th>
+                        <th>สินค้า</th>
+                        <th>ราคา</th>
+                        <th>จำนวน</th>
+                        <th>รวม</th>
+                        <th>จัดการ</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -79,7 +79,7 @@ if (!empty($_SESSION['cart'])) {
                             </td>
                             <td>
                                 <a href="api.php?action=remove_from_cart&product_id=<?= $item['id'] ?>"
-                                    style="color: #ff5555; text-decoration: none;">Remove</a>
+                                    style="color: #ff5555; text-decoration: none;">ลบออก</a>
                             </td>
                         </tr>
                     <?php endforeach; ?>
@@ -87,20 +87,19 @@ if (!empty($_SESSION['cart'])) {
             </table>
 
             <div style="margin-top: 2rem;">
-                <h2 style="color: var(--neon-green); margin-bottom: 1rem; text-align: right;">TOTAL:
+                <h2 style="color: var(--neon-green); margin-bottom: 1rem; text-align: right;">ยอดรวมทั้งหมด:
                     $<?= number_format($total_price, 2) ?></h2>
                 <form action="api.php" method="POST" style="max-width: 400px; margin-left: auto;">
                     <input type="hidden" name="action" value="checkout">
 
                     <div class="form-group">
                         <label
-                            style="color: var(--text-muted); display: block; margin-bottom: 0.5rem; text-align: left;">Shipping
-                            Address</label>
+                            style="color: var(--text-muted); display: block; margin-bottom: 0.5rem; text-align: left;">ที่อยู่จัดส่ง</label>
                         <textarea name="address" class="form-control" rows="3" required
-                            placeholder="Enter delivery coordinates..."></textarea>
+                            placeholder="กรุณากรอกที่อยู่สำหรับจัดส่งสินค้า..."></textarea>
                     </div>
 
-                    <button type="submit" class="btn-neon" style="width: 100%; padding: 1rem;">INITIALIZE CHECKOUT</button>
+                    <button type="submit" class="btn-neon" style="width: 100%; padding: 1rem;">ยืนยันการสั่งซื้อ</button>
                     <?php if (isset($_GET['error'])): ?>
                         <p style="color: red; margin-top: 0.5rem; text-align: center;"><?= htmlspecialchars($_GET['error']) ?>
                         </p>

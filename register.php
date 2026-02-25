@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register - Gaming Store</title>
+    <title>สมัครสมาชิก - ร้านเกม</title>
     <link rel="stylesheet" href="style.css?v=<?php echo time(); ?>">
     <link
         href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Oswald:wght@300;400;700&display=swap"
@@ -13,7 +13,7 @@
 
 <body class="login-page">
     <div class="login-container">
-        <h1>Create Account</h1>
+        <h1>สร้างบัญชีใหม่</h1>
         <?php if (isset($_GET['error'])): ?>
             <p class="success-message" style="border-color: red; color: red; background: rgba(255,0,0,0.1);">
                 <?= htmlspecialchars($_GET['error']) ?>
@@ -22,29 +22,29 @@
         <form action="api.php" method="POST">
             <input type="hidden" name="action" value="register">
             <div class="form-group">
-                <label>Username</label>
+                <label>ชื่อผู้ใช้</label>
                 <input type="text" name="username" required>
             </div>
             <div class="form-group">
-                <label>Email</label>
+                <label>อีเมล</label>
                 <input type="email" name="email" required>
             </div>
             <div class="form-group">
-                <label>Mobile Number</label>
+                <label>เบอร์โทรศัพท์</label>
                 <input type="tel" name="mobile" required>
             </div>
             <div class="form-group">
-                <label>Password</label>
+                <label>รหัสผ่าน</label>
                 <input type="password" name="password" required>
             </div>
             <div class="form-group">
-                <label>Confirm Password</label>
+                <label>ยืนยันรหัสผ่าน</label>
                 <input type="password" name="confirm_password" required>
             </div>
-            <button type="submit" class="btn-neon">JOIN THE GAME</button>
+            <button type="submit" class="btn-neon">สมัครสมาชิก</button>
         </form>
         <div class="login-links">
-            <p>Already have an account? <a href="login.php">Login</a></p>
+            <p>มีบัญชีอยู่แล้ว? <a href="login.php">เข้าสู่ระบบ</a></p>
         </div>
     </div>
 </body>

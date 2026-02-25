@@ -13,7 +13,7 @@ $stmt->execute([$id]);
 $product = $stmt->fetch();
 
 if (!$product) {
-    echo "Product not found.";
+    echo "ไม่พบสินค้า";
     exit;
 }
 ?>
@@ -24,7 +24,7 @@ if (!$product) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>
-        <?= htmlspecialchars($product['name']) ?> - Gaming Store
+        <?= htmlspecialchars($product['name']) ?> - ร้านเกม
     </title>
     <link rel="stylesheet" href="style.css?v=<?php echo time(); ?>">
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
@@ -32,10 +32,10 @@ if (!$product) {
 
 <body>
     <nav class="navbar">
-        <div class="logo">GEMING STORE</div>
+        <div class="logo">ร้านเกม</div>
         <div class="nav-links">
-            <a href="index.php">Back to Shop</a>
-            <a href="cart.php">Cart</a>
+            <a href="index.php">กลับไปที่ร้าน</a>
+            <a href="cart.php">ตะกร้า</a>
         </div>
     </nav>
 
@@ -67,12 +67,12 @@ if (!$product) {
                     <input type="hidden" name="product_id" value="<?= $product['id'] ?>">
 
                     <div style="margin-bottom: 1rem;">
-                        <label style="color: white; margin-bottom: 0.5rem; display: block;">Quantity</label>
+                        <label style="color: white; margin-bottom: 0.5rem; display: block;">จำนวน</label>
                         <input type="number" name="quantity" value="1" min="1" class="form-control"
                             style="width: 100px;">
                     </div>
 
-                    <button type="submit" class="btn-neon">ADD TO ACQUIRE</button>
+                    <button type="submit" class="btn-neon">เพิ่มลงในคลังแสง</button>
                 </form>
             </div>
         </div>

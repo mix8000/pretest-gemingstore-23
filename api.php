@@ -47,17 +47,17 @@ try {
 
         // Validation
         if ($password !== $confirm_password) {
-            header('Location: register.php?error=Passwords do not match');
+            header('Location: register.php?error=รหัสผ่านไม่ตรงกัน');
             exit;
         }
 
         if (strlen($password) < 8 || !preg_match('/[A-Z]/', $password) || !preg_match('/[a-z]/', $password)) {
-            header('Location: register.php?error=Password must be at least 8 chars, include 1 uppercase and 1 lowercase letter');
+            header('Location: register.php?error=รหัสผ่านต้องมีอย่างน้อย 8 ตัวอักษร และประกอบด้วยตัวพิมพ์ใหญ่และตัวพิมพ์เล็ก');
             exit;
         }
 
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            header('Location: register.php?error=Invalid email format');
+            header('Location: register.php?error=รูปแบบอีเมลไม่ถูกต้อง');
             exit;
         }
 
@@ -65,7 +65,7 @@ try {
         $stmt = $pdo->prepare("SELECT COUNT(*) FROM users WHERE username = ?");
         $stmt->execute([$username]);
         if ($stmt->fetchColumn() > 0) {
-            header('Location: register.php?error=Username already taken');
+            header('Location: register.php?error=ชื่อผู้ใช้นี้ถูกใช้งานแล้ว');
             exit;
         }
 
@@ -98,7 +98,7 @@ try {
                 header('Location: index.php');
             }
         } else {
-            header('Location: login.php?error=Invalid username or password');
+            header('Location: login.php?error=ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง');
         }
 
     } elseif ($action === 'add_to_cart') {
@@ -133,7 +133,7 @@ try {
     } elseif ($action === 'checkout') {
         session_start();
         if (!isset($_SESSION['user_id'])) {
-            header('Location: login.php?error=Please login to checkout');
+            header('Location: login.php?error=กรุณาเข้าสู่ระบบก่อนดำเนินการชำระเงิน');
             exit;
         }
 
@@ -144,7 +144,7 @@ try {
 
         $address = $_POST['address'] ?? '';
         if (empty($address)) {
-            header('Location: cart.php?error=Please provide a shipping address');
+            header('Location: cart.php?error=กรุณาระบุที่อยู่สำหรับจัดส่ง');
             exit;
         }
 

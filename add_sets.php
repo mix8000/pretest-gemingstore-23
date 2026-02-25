@@ -7,25 +7,25 @@ try {
 
     $sets = [
         [
-            'name' => 'Budget Warrior Set',
+            'name' => 'ชุดนักรบประหยัด',
             'price' => 15900.00,
-            'description' => 'Perfect starting point for 1080p gaming. value for money.',
+            'description' => 'จุดเริ่มต้นที่สมบูรณ์แบบสำหรับการเล่นเกม 1080p คุ้มค่าคุ้มราคา',
             'image_url' => 'https://images.unsplash.com/photo-1593640408182-31c70c8268f5?auto=format&fit=crop&q=80&w=1000',
-            'category' => 'Computer Set'
+            'category' => 'ชุดคอมพิวเตอร์'
         ],
         [
-            'name' => 'Pro Streamer Set',
+            'name' => 'ชุดโปรสตรีมเมอร์',
             'price' => 32500.00,
-            'description' => 'High performance for gaming and streaming simultaneously. RTX inside.',
+            'description' => 'ประสิทธิภาพสูงสำหรับการเล่นเกมและสตรีมมิ่งพร้อมกัน มี RTX ในตัว',
             'image_url' => 'https://images.unsplash.com/photo-1587202314342-653197259d64?auto=format&fit=crop&q=80&w=1000',
-            'category' => 'Computer Set'
+            'category' => 'ชุดคอมพิวเตอร์'
         ],
         [
-            'name' => 'Ultimate God Tier',
+            'name' => 'ชุดเทพเจ้าขั้นสูงสุด',
             'price' => 89000.00,
-            'description' => 'Uncompromised 4K Ultra gaming. The best money can buy.',
+            'description' => 'การเล่นเกม 4K Ultra ที่ไม่มีใครเทียบได้ สิ่งที่ดีที่สุดที่เงินซื้อได้',
             'image_url' => 'https://images.unsplash.com/photo-1603481588234-583d71241512?auto=format&fit=crop&q=80&w=1000',
-            'category' => 'Computer Set'
+            'category' => 'ชุดคอมพิวเตอร์'
         ]
     ];
 

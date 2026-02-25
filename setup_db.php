@@ -89,9 +89,9 @@ try {
     $stmt = $pdo->query("SELECT COUNT(*) FROM products");
     if ($stmt->fetchColumn() == 0) {
         $dummyData = [
-            ['Neon Cyber Headsset', 1500.00, 'High fidelity audio with neon glow.', 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?q=80&w=1000&auto=format&fit=crop', 'Gear'],
-            ['Mecha Keyboard X', 2500.00, 'Mechanical switches with RGB matrix.', 'https://images.unsplash.com/photo-1511467687858-23d96c32e4ae?q=80&w=1000&auto=format&fit=crop', 'Gear'],
-            ['Quantum Mouse', 900.00, 'Zero latency wireless mouse.', 'https://images.unsplash.com/photo-1527814050087-3793815479db?q=80&w=1000&auto=format&fit=crop', 'Gear']
+            ['หูฟังนีออนไซเบอร์', 1500.00, 'เสียงความคมชัดสูงพร้อมแสงนีออน', 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?q=80&w=1000&auto=format&fit=crop', 'อุปกรณ์'],
+            ['คีย์บอร์ดเมชา X', 2500.00, 'สวิตช์เชิงกลพร้อมไฟ RGB', 'https://images.unsplash.com/photo-1511467687858-23d96c32e4ae?q=80&w=1000&auto=format&fit=crop', 'อุปกรณ์'],
+            ['เมาส์ควอนตัม', 900.00, 'เมาส์ไร้สายความหน่วงต่ำมาก', 'https://images.unsplash.com/photo-1527814050087-3793815479db?q=80&w=1000&auto=format&fit=crop', 'อุปกรณ์']
         ];
 
         $insert = $pdo->prepare("INSERT INTO products (name, price, description, image_url, category) VALUES (?, ?, ?, ?, ?)");
