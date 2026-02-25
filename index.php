@@ -36,6 +36,7 @@ $cats = $pdo->query("SELECT DISTINCT category FROM products")->fetchAll(PDO::FET
     <title>ร้านเกม</title>
     <link rel="stylesheet" href="style.css?v=<?php echo time(); ?>">
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         .toast {
             position: fixed;
@@ -115,26 +116,36 @@ $cats = $pdo->query("SELECT DISTINCT category FROM products")->fetchAll(PDO::FET
     </nav>
 
     <div class="container">
-        <section class="hero">
-            <h1>อัปเกรดอุปกรณ์ของคุณ</h1>
-            <p>อุปกรณ์เกมระดับพรีเมี่ยมสำหรับคนพิเศษ ประสิทธิภาพเสริมไซเบอร์</p>
+        <!-- New Hero Banner -->
+        <div class="hero-banner">
+            <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=2000&auto=format&fit=crop"
+                alt="Gaming Banner">
+            <div class="hero-content-overlay">
+                <p style="color: var(--neon-green); font-family: 'Orbitron'; margin-bottom: 0.5rem;">WELCOME TO THE NEXT
+                    LEVEL</p>
+                <h2>ศูนย์รวมอุปกรณ์เกมมิ่งเกียร์</h2>
+                <p>ยกระดับประสิทธิภาพการเล่นเกมด้วยเทคโนโลยีระดับโปร</p>
+            </div>
+        </div>
 
+        <section class="hero" style="padding-top: 0;">
             <form method="GET"
-                style="margin-top: 2rem; display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;">
+                style="margin-bottom: 3rem; display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;">
                 <input type="text" name="search" placeholder="ค้นหาสินค้า..." value="<?= htmlspecialchars($search) ?>"
-                    style="padding: 0.8rem; width: 300px; border-radius: 4px; border: 1px solid rgba(255,255,255,0.2); background: rgba(0,0,0,0.5); color: white;">
-
-                <select name="category" onchange="this.form.submit()"
-                    style="padding: 0.8rem; border-radius: 4px; border: 1px solid rgba(255,255,255,0.2); background: rgba(0,0,0,0.5); color: white;">
-                    <option value="">ทุกหมวดหมู่</option>
-                    <?php foreach ($cats as $c): ?>
-                        <option value="<?= $c ?>" <?= $category === $c ? 'selected' : '' ?>><?= $c ?></option>
-                    <?php endforeach; ?>
-                </select>
-
+                    style="padding: 0.8rem; width: 400px; border-radius: 30px; border: 1px solid rgba(255,255,255,0.2); background: rgba(0,0,0,0.5); color: white; padding-left: 1.5rem;">
                 <button type="submit" class="btn-neon"
-                    style="width: auto; margin-top: 0; padding: 0.8rem 2rem;">ค้นหา</button>
+                    style="width: auto; margin-top: 0; padding: 0.8rem 2.5rem; border-radius: 30px;">ค้นหา</button>
             </form>
+
+            <div class="category-pills">
+                <a href="index.php" class="category-pill <?= empty($category) ? 'active' : '' ?>">ทั้งหมด</a>
+                <?php foreach ($cats as $c): ?>
+                    <a href="index.php?category=<?= urlencode($c) ?>&search=<?= urlencode($search) ?>"
+                        class="category-pill <?= $category === $c ? 'active' : '' ?>">
+                        <?= htmlspecialchars($c) ?>
+                    </a>
+                <?php endforeach; ?>
+            </div>
         </section>
 
         <div class="product-grid" id="products">
@@ -142,14 +153,21 @@ $cats = $pdo->query("SELECT DISTINCT category FROM products")->fetchAll(PDO::FET
                 <p style="grid-column: 1/-1; text-align: center; color: var(--text-muted);">
                     ไม่พบสินค้าที่ตรงกับการค้นหาของคุณ</p>
             <?php else: ?>
-                <?php foreach ($products as $product): ?>
+                <?php foreach ($products as $index => $product): ?>
                     <div class="product-card">
+                        <?php if ($index % 3 == 0): ?>
+                            <span class="badge badge-sale">ลดราคา</span>
+                        <?php elseif ($index == 0): ?>
+                            <span class="badge badge-new">ใหม่</span>
+                        <?php endif; ?>
+
                         <img src="<?= htmlspecialchars($product['image_url']) ?>"
                             alt="<?= htmlspecialchars($product['name']) ?>" class="product-image">
-                        <div class="product-info">
+                        <div class="product-info" style="flex-grow: 1; display: flex; flex-direction: column;">
                             <span class="product-category"><?= htmlspecialchars($product['category']) ?></span>
-                            <h3><?= htmlspecialchars($product['name']) ?></h3>
-                            <p class="product-price">$<?= number_format($product['price'], 2) ?></p>
+                            <h3 style="margin-bottom: 1rem; line-height: 1.4;"><?= htmlspecialchars($product['name']) ?></h3>
+                            <p class="product-price" style="margin-top: auto; color: var(--neon-green);">
+                                $<?= number_format($product['price'], 2) ?></p>
                             <a href="product_detail.php?id=<?= $product['id'] ?>" class="btn btn-primary">ดูรายละเอียด</a>
                         </div>
                     </div>
@@ -157,6 +175,10 @@ $cats = $pdo->query("SELECT DISTINCT category FROM products")->fetchAll(PDO::FET
             <?php endif; ?>
         </div>
     </div>
+
+    </div>
+
+    <?php include 'footer.php'; ?>
 
 </body>
 

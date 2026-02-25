@@ -28,14 +28,25 @@ if (!empty($_SESSION['cart'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ตะกร้าของคุณ - ร้านเกม</title>
     <link rel="stylesheet" href="style.css?v=<?php echo time(); ?>">
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Oswald:wght@300;400;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 
 <body>
     <nav class="navbar">
         <div class="logo">ร้านเกม</div>
         <div class="nav-links">
-            <a href="index.php">เลือกซื้อสินค้าต่อ</a>
+            <a href="index.php">หน้าแรก</a>
+            <a href="cart.php">ตะกร้า (<?php echo isset($_SESSION['cart']) ? array_sum($_SESSION['cart']) : 0; ?>)</a>
+            <?php if (isset($_SESSION['user_id'])): ?>
+                <a href="profile.php" style="color: var(--neon-blue);">โปรไฟล์
+                    [<?php echo htmlspecialchars($_SESSION['username']); ?>]</a>
+            <?php else: ?>
+                <a href="login.php" class="btn-admin" style="display:inline-block; border-radius:4px;">เข้าสู่ระบบ</a>
+            <?php endif; ?>
         </div>
     </nav>
 
@@ -108,6 +119,9 @@ if (!empty($_SESSION['cart'])) {
             </div>
         <?php endif; ?>
     </div>
+    </div>
+
+    <?php include 'footer.php'; ?>
 </body>
 
 </html>

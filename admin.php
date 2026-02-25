@@ -19,7 +19,10 @@ $orders = $stmt->fetchAll();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ระบบหลังบ้าน - ร้านเกม</title>
     <link rel="stylesheet" href="style.css?v=<?php echo time(); ?>">
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Oswald:wght@300;400;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         .section-title {
             margin-top: 3rem;
@@ -119,9 +122,10 @@ $orders = $stmt->fetchAll();
                         <td><?= htmlspecialchars($product['category']) ?></td>
                         <td>
                             <a href="?edit=<?= $product['id'] ?>#add-form"
-                                style="color:var(--neon-blue); margin-right:1rem;">แก้ไข</a>
+                                style="color:var(--neon-blue); margin-right:1rem;"><i class="fas fa-edit"></i> แก้ไข</a>
                             <a href="api.php?action=delete&id=<?= $product['id'] ?>"
-                                onclick="return confirm('คุณแน่ใจหรือไม่ที่จะลบสินค้านี้?')" style="color:red;">ลบออก</a>
+                                onclick="return confirm('คุณแน่ใจหรือไม่ที่จะลบสินค้านี้?')" style="color:red;"><i
+                                    class="fas fa-trash"></i> ลบออก</a>
                         </td>
                     </tr>
                 <?php endforeach; ?>
@@ -192,6 +196,7 @@ $orders = $stmt->fetchAll();
 
     </div>
 
+    <?php include 'footer.php'; ?>
 </body>
 
 </html>

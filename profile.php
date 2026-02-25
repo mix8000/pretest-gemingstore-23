@@ -17,14 +17,15 @@ $orders = $stmt->fetchAll();
     <title>โปรไฟล์ของฉัน - ร้านเกม</title>
     <link rel="stylesheet" href="style.css?v=<?php echo time(); ?>">
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 
 <body>
     <nav class="navbar">
-        <div class="logo">โปรไฟล์ผู้เล่น</div>
+        <div class="logo">ร้านเกม</div>
         <div class="nav-links">
-            <a href="index.php">ร้านค้า</a>
-            <a href="cart.php">ตะกร้า</a>
+            <a href="index.php">หน้าแรก</a>
+            <a href="cart.php">ตะกร้า (<?php echo isset($_SESSION['cart']) ? array_sum($_SESSION['cart']) : 0; ?>)</a>
             <a href="api.php?action=logout" style="color: #ff3333;">ออกจากระบบ</a>
         </div>
     </nav>
@@ -92,6 +93,8 @@ $orders = $stmt->fetchAll();
             </div>
         </div>
     </div>
+    </div>
+    <?php include 'footer.php'; ?>
 </body>
 
 </html>

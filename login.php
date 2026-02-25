@@ -14,14 +14,14 @@
 <body class="login-page">
     <div class="login-container">
         <h1>เข้าสู่ระบบผู้เล่น</h1>
-               <?php if (isset($_GET['error'])): ?>
+        <?php if (isset($_GET['error'])): ?>
             <p class="success-message" style="border-color: red; color: red; background: rgba(255,0,0,0.1);">
-                       <?= htmlspecialchars($_GET['error']) ?>
+                <?= htmlspecialchars($_GET['error']) ?>
             </p>
-               <?php endif; ?>
-               <?php if (isset($_GET['registered'])): ?>
+        <?php endif; ?>
+        <?php if (isset($_GET['registered'])): ?>
             <p class="success-message">ลงทะเบียนสำเร็จ! กรุณาเข้าสู่ระบบ</p>
-          <?php endif; ?>
+        <?php endif; ?>
         <form action="api.php" method="POST">
             <input type="hidden" name="action" value="login">
             <div class="form-group">
@@ -39,6 +39,8 @@
 
         </div>
     </div>
+
+    <?php include 'footer.php'; ?>
 </body>
 
 </html>

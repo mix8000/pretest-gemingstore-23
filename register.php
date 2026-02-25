@@ -47,6 +47,7 @@
             <p>มีบัญชีอยู่แล้ว? <a href="login.php">เข้าสู่ระบบ</a></p>
         </div>
     </div>
+    <?php include 'footer.php'; ?>
 </body>
 
 </html>
