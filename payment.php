@@ -50,7 +50,7 @@ if (!$order) {
     </nav>
 
     <div class="container" style="max-width: 600px; margin-top: 3rem;">
-        <div class="form-container">
+        <div class="login-container" style="max-width: 100%;">
             <h1 style="color: var(--neon-blue); text-align: center; margin-bottom: 2rem;">ชำระเงิน</h1>
 
             <div
@@ -82,7 +82,9 @@ if (!$order) {
                 </div>
 
                 <button type="submit" class="btn-neon"
-                    style="width: 100%; padding: 1rem; margin-top: 1rem;">แจ้งชำระเงิน</button>
+                    style="width: 100%; padding: 1.2rem; margin-top: 1.5rem; display: block; position: relative; z-index: 10; cursor: pointer;">
+                    <i class="fas fa-paper-plane" style="margin-right: 10px;"></i> แจ้งชำระเงิน
+                </button>
             </form>
 
             <?php if (isset($_GET['error'])): ?>
