@@ -132,9 +132,9 @@ try {
                 'อุปกรณ์เกียร์'
             ],
             [
-                'คอมพิวเตอร์เซ็ต: TITAN-X ULTIMATE',
+                'คอมพิวเตอร์เซ็ต: TITAN-X ULTIMATE (Extreme Gaming Build)',
                 45000.00,
-                "สุดยอดคอมพิวเตอร์ประกอบสำหรับสตรีมเมอร์และนักแข่งมือโปร\n- CPU: Intel Core i9-14900K Turbo 6.0GHz\n- GPU: NVIDIA RTX 4090 24GB สุดแรงทุกเฟรมเรต\n- RAM: 64GB DDR5 RGB High Speed\n- Storage: 2TB NVMe Gen5 SSD\n- Cooling: ระบบระบายความร้อนด้วยน้ำแบบเปิด",
+                "ชุดคอมพิวเตอร์ระดับ Ultra Hi-End ที่ออกแบบมาเพื่อการเล่นเกม 4K และการสตรีมมิ่งที่ลื่นไหลที่สุด\n\n[สเปกเครื่องขั้นเทพ]\n- CPU: Intel Core i9-14900K (24 Cores, 32 Threads) ตัวแรงที่สุด\n- GPU: NVIDIA GeForce RTX 4090 24GB GDDR6X (Ray Tracing Gen 3)\n- RAM: 64GB (32GBx2) DDR5 6400MHz RGB สุดพรีเมียม\n- Mainboard: ASUS ROG Maximus Z790 Dark Hero\n- Storage: 2TB NVMe Gen5 SSD (Speed 12,000MB/s)\n- PSU: 1200W 80+ Platinum Fully Modular\n- Case: HYTE Y70 Touch พร้อมจอสัมผัสแสดงผลแบบเรียลไทม์\n- Cooling: ระบบระบายความร้อนด้วยน้ำแบบเปิด (Custom Water Cooling) พร้อมไฟ RGB Sync ทั้งระบบ\n\n[บริการสุดพิเศษ]\n- บริการประกอบและจัดแต่งสายไฟอย่างมืออาชีพ (Cable Management)\n- ติดตั้ง Windows 11 Pro แท้พร้อมใช้งาน\n- รับประกันอุปกรณ์รายชิ้นสูงสุด 5-10 ปี\n- ฟรี! ประกันแบบ Onsite Service ถึงบ้าน 3 ปีเต็ม",
                 'https://images.unsplash.com/photo-1587202372775-e229f172b9d7?q=80&w=1000&auto=format&fit=crop',
                 'Computer Set'
             ],
